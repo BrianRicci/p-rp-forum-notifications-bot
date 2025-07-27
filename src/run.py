@@ -4,8 +4,10 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
-from config import TG_TOKEN
-from handlers import router
+from bot.config import TG_TOKEN
+from bot.handlers import router
+
+from bot.database.models import async_main
 
 
 bot = Bot(
@@ -20,6 +22,8 @@ dp = Dispatcher()
 
 
 async def main():
+    await async_main()
+
     dp.include_router(router)
     await dp.start_polling(bot)
 

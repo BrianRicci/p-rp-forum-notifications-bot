@@ -4,12 +4,16 @@ from aiogram.filters import Command, CommandObject, CommandStart
 from aiogram.utils.formatting import (Bold, Text, Code, as_marked_section, as_numbered_section)
 from aiogram.utils.markdown import link
 
+import database.requests as rq
+
 
 router = Router()
 
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
+    await rq.set_user(message.from_user.id)
+
     content = Text(
         Bold('Привет! Я бот для отслеживания новых сообщений на форумах.\n\n'),
         as_marked_section(
