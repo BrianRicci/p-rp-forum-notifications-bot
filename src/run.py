@@ -7,7 +7,9 @@ from aiogram.enums import ParseMode
 from bot.config import TG_TOKEN
 from bot.handlers import router
 
-from bot.database.models import async_main
+from database.models import async_main
+
+from parser_async import gather_data
 
 
 bot = Bot(
@@ -23,7 +25,8 @@ dp = Dispatcher()
 
 async def main():
     await async_main()
-
+    await gather_data()
+    
     dp.include_router(router)
     await dp.start_polling(bot)
 

@@ -35,3 +35,11 @@ async def set_topic(tg_id, topic_url):
         #                     messages_number=messages_number,
         #                     user_id=user.id))
         # await session.commit()
+
+
+async def get_topic_list():
+    async with async_session() as session:
+        results = await session.execute(select(Topic)) 
+        topics = results.scalars().all()
+
+        return topics
